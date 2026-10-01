@@ -1,0 +1,6 @@
+@QuickDesk.Api_HostAddress = http://localhost:5219
+
+GET {{QuickDesk.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

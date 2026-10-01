@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="QuickDesk.Api/QuickDesk.Api.csproj" Id="fd0c99bf-c724-4d46-b305-0b3234fd64d2" />
+  <Project Path="QuickDesk.Application/QuickDesk.Application.csproj" />
+  <Project Path="QuickDesk.Domain/QuickDesk.Domain.csproj" />
+  <Project Path="QuickDesk.Infrastructure/QuickDesk.Infrastructure.csproj" />
+  <Project Path="QuickDesk.worker/QuickDesk.worker.csproj" Id="5c05e76b-f535-4364-911f-325e0ce0a68c" />
+</Solution>

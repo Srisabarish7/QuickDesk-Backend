@@ -78,7 +78,7 @@ namespace QuickDesk.Api.Middlewares
             }
         }
 
-        private async Task WriteErrorResponseAsync(HttpContext context, HttpStatusCode statusCode, List<string> CustomErrors = null)
+        private async Task WriteErrorResponseAsync(HttpContext context, HttpStatusCode statusCode, List<string>? CustomErrors = null)
         {
             if (context.Response.HasStarted)
             {
@@ -89,7 +89,7 @@ namespace QuickDesk.Api.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
 
-            var errorDetails = CustomErrors.Count > 0 ? string.Join(", ", CustomErrors) : string.Empty;
+            var errorDetails = CustomErrors?.Count > 0 ? string.Join(", ", CustomErrors) : string.Empty;
 
             var errorResponse = new ApiErrorResponse
             {

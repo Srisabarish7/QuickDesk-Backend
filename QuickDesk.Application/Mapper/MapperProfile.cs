@@ -13,6 +13,8 @@ namespace QuickDesk.Application.Mapper
         {
             #region Commands
             CreateMap<AddUserCommand, AddUser>();
+            CreateMap<SignInCommand, SignIn>();
+            CreateMap<CreateJobCommand, CreateJob>();
             #endregion
         }
     }

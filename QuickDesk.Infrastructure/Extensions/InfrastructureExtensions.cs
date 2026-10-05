@@ -2,6 +2,7 @@
 using QuickDesk.Infrastructure.DbConnection;
 using QuickDesk.Infrastructure.Interfaces;
 using QuickDesk.Infrastructure.Repositories;
+using QuickDesk.Infrastructure.Services;
 namespace QuickDesk.Infrastructure.Extensions
 {
     public static class InfrastructureExtensions
@@ -10,8 +11,11 @@ namespace QuickDesk.Infrastructure.Extensions
         {
             //Register Dependencies
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
+            //Password Dependency Injection
+            services.AddScoped<IPasswordHasherService, PasswordHasherService>();
+            services.AddScoped<IJobRepository, JobRepository>();
             return services;
         }
     }

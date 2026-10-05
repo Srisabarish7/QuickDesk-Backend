@@ -6,12 +6,9 @@ using System.Text;
 
 namespace QuickDesk.Application.Operations.Commands.Requests
 {
-    public class AddUserCommand : IRequest<UserDto>
+    public class SignInCommand : IRequest<UserDto>
     {
         public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
         public string Password { get; set; }
     }
 }

@@ -11,12 +11,12 @@ namespace QuickDesk.Infrastructure.DbConnection
     }
     public class DbConnectionFactory : IDbConnectionFactory
     {
-        private readonly string _connectionString;
+        private readonly IConfiguration _connectionString;
         private readonly ILogger<DbConnectionFactory> _logger;
 
         public DbConnectionFactory(IConfiguration configuration, ILogger<DbConnectionFactory> logger)
         {
-            _connectionString = configuration.GetConnectionString("QuickDesk");
+            _connectionString = configuration;
             _logger = logger;
         }
 
@@ -24,7 +24,8 @@ namespace QuickDesk.Infrastructure.DbConnection
         {
             try
             {
-                var connection = new SqlConnection(_connectionString);
+                var connectionString = _connectionString.GetConnectionString("QuickDesk");
+                var connection = new SqlConnection(connectionString);
                 await connection.OpenAsync(cancellationToken);
                 return connection;
             }

@@ -29,5 +29,20 @@ namespace QuickDesk.Api.Controllers
                 return BadRequest("Failed to add user.");
             }
         }
+
+        [HttpPost]
+        [Route("signin")]
+        public async Task<IActionResult> SignIn([FromBody] SignInCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+        }
     }
 }

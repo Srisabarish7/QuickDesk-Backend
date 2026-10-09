@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using QuickDesk.Application.Operations.Commands.Requests;
 using QuickDesk.Application.ResponseDtos;
 using QuickDesk.Domain.Common.ExceptionHandling;
 using QuickDesk.Domain.Entities;
 using QuickDesk.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
 
 namespace QuickDesk.Application.Operations.Commands.Handlers
 {
@@ -57,8 +56,13 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
             try
             {  
                 request.JobStatusId = request.ScheduledAt.HasValue && request.ScheduledAt.Value > DateTime.UtcNow ? 2 : 1;
+                var isValidJson = JsonDocument.Parse(request.DetailsJson.GetRawText());
+                if(!isValidJson.RootElement.ValueKind.Equals(JsonValueKind.Object))
+                {
+                    throw new BadRequestCustomException(new List<string> { "DetailsJson must be a valid JSON object." });
+                }
                 var job = _mapper.Map<CreateJob>(request);
-                return await _jobRepository.CreateJob(job, cancellationToken);
+                return await _jobRepository.CreateJob(job, cancellationToken);                
             }
             catch (Exception ex)
             {
@@ -80,6 +84,7 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
                 CompletedAt = job.CompletedAt,
                 CreatedAt = job.CreatedAt,
                 ErrorMessage = job.ErrorMessage,
+                DetailsJson = job.DetailsJson,
                 RequestId = Guid.NewGuid().ToString(),
                 RequestMessage = "Job created successfully"
             };

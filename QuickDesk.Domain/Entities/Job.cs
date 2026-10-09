@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace QuickDesk.Domain.Entities
 {
@@ -16,5 +17,6 @@ namespace QuickDesk.Domain.Entities
         public DateTime? CompletedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public string ErrorMessage { get; set; }
+        public string DetailsJson { get; set; }
     }
 }

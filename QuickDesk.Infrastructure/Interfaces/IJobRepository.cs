@@ -1,7 +1,4 @@
 ﻿using QuickDesk.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace QuickDesk.Infrastructure.Interfaces
 {

@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using QuickDesk.Application.ResponseDtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
 
 namespace QuickDesk.Application.Operations.Commands.Requests
 {
@@ -11,6 +9,7 @@ namespace QuickDesk.Application.Operations.Commands.Requests
         public long? UserId { get; set; }
         public long JobTypeId { get; set; }
         public long? JobStatusId { get; set; }
+        public JsonElement DetailsJson { get; set; }
         public DateTime? ScheduledAt { get; set; } = null;
     }
 }

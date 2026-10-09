@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json;
 
 namespace QuickDesk.Domain.Entities
 {
@@ -10,5 +8,6 @@ namespace QuickDesk.Domain.Entities
         public long JobTypeId { get; set; }
         public long JobStatusId { get; set; }
         public DateTime? ScheduledAt { get; set; } = null;
+        public JsonElement DetailsJson { get; set; }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Dapper;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using QuickDesk.Domain.Entities;
 using QuickDesk.Infrastructure.DbConnection;
 using QuickDesk.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace QuickDesk.Infrastructure.Repositories
 {
@@ -32,11 +28,12 @@ namespace QuickDesk.Infrastructure.Repositories
                 parameters.Add("@JobTypeId", request.JobTypeId);
                 parameters.Add("@JobStatusId", request.JobStatusId);
                 parameters.Add("@ScheduledAt", request.ScheduledAt);
+                parameters.Add("@DetailsJson", request.DetailsJson.GetRawText());
 
                 var result = await connectionString.QuerySingleAsync<Job>(
                     DBQueries.CreateJob,
                     parameters,
-                    commandType: System.Data.CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure);
                 return result ?? new Job();
             }
             catch (Exception ex)

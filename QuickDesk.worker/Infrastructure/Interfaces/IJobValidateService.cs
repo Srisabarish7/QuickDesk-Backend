@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace QuickDesk.worker.Infrastructure
+namespace QuickDesk.worker.Infrastructure.Interfaces
 {
     public interface IJobValidateService
     {

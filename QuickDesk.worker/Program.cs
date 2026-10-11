@@ -1,5 +1,12 @@
 using QuickDesk.worker;
+using QuickDesk.worker.Application.Interfaces;
+using QuickDesk.worker.Application.UseCases;
+using QuickDesk.worker.Application.Validators;
 using QuickDesk.worker.Configuration;
+using QuickDesk.worker.Dispatching;
+using QuickDesk.worker.Infrastructure;
+using QuickDesk.worker.Pipeline;
+using QuickDesk.worker.Processors;
 using Serilog;
 
 public class Program
@@ -49,6 +56,25 @@ public class Program
             (hostContext.Configuration.GetSection(QuickDeskOptions.SectionName));
 
             services.AddHostedService<QuickDeskWorker>();
+
+            //Add Validator
+            services.AddSingleton<IJobItemValidator, JobItemValidator>();
+
+            //Add UseCase
+            services.AddTransient<IProcessJobItemUseCase, ProcessJobItemUseCase>();
+
+            //Add Dispatcher
+            services.AddSingleton<IProcessorRegistry, ProcessorRegistry>();
+            services.AddSingleton<ProcessorDispatcher>();
+
+            //Processors
+            services.AddProcessors();
+
+            //Pipeline
+            services.AddPipeline();
+
+            //Add Infrastructure
+            services.AddInfrastructure();
         });
 
     private static void ValidateConfiguration(IServiceProvider services)

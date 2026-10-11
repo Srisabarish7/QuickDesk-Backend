@@ -1,5 +1,5 @@
 ﻿using QuickDesk.worker.Domain.Enum;
-using QuickDesk.worker.Infrastructure;
+using QuickDesk.worker.Infrastructure.Interfaces;
 using QuickDesk.worker.Models;
 using QuickDesk.worker.Models.Pipeline;
 
@@ -23,7 +23,7 @@ namespace QuickDesk.worker.Pipeline
                 return;
             }
 
-            var updateResult = await _sqlQueueRepository.UpdateJobStatusAsync(context.JobId, (int)JobStatusEnum.Running,errorMessage: null, cancellationToken);
+            var updateResult = await _sqlQueueRepository.UpdateJobStatusAsync(context.JobId, (int)JobStatusEnum.Running, 50, errorMessage: null, cancellationToken);
 
             SyncContextItem(context.Item, updateResult);
 

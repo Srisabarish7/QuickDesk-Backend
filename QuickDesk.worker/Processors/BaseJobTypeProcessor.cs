@@ -1,6 +1,6 @@
 ﻿using QuickDesk.worker.Dispatching;
 using QuickDesk.worker.Domain.Enum;
-using QuickDesk.worker.Infrastructure;
+using QuickDesk.worker.Infrastructure.Interfaces;
 using QuickDesk.worker.Models;
 using QuickDesk.worker.Models.Pipeline;
 using System;

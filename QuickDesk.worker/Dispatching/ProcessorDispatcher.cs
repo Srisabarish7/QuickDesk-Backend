@@ -22,6 +22,7 @@ namespace QuickDesk.worker.Dispatching
         public async Task<bool> DispatchAsync(QuickDeskWorkerItem jobItem, CancellationToken cancellationToken)
         {
             var jobType = Classify(jobItem.JobTypeId);
+            var jobStatus = (JobStatusEnum)jobItem.JobStatusId;
             if(jobType == JobTypeEnum.Unknown)
             {
                 _logger.LogWarning("Unknown job type {JobTypeId} for job {JobId}", jobItem.JobTypeId, jobItem.JobId);
@@ -37,6 +38,7 @@ namespace QuickDesk.worker.Dispatching
             var context = new ProcessingContext(jobItem)
             {
                 JobType = jobType,
+                JobStatus = jobStatus,
                 Details = TryParseDetails(jobItem.DetailsJson),
             };
             return await processor.ProcessJobAsync(context, cancellationToken);

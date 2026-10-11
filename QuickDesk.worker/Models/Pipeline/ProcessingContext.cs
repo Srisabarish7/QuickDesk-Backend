@@ -18,6 +18,7 @@ namespace QuickDesk.worker.Models.Pipeline
         public long JobTypeId => Item.JobTypeId;
         public long UserId => Item.UserId;
         public JobTypeEnum JobType { get; set; } = JobTypeEnum.Unknown;
+        public JobStatusEnum JobStatus { get; set; }
         public string? DetailsJson => Item.DetailsJson;
         public JObject Details { get; set; } = new JObject();
         public List<string> Errors { get; } = new List<string>();

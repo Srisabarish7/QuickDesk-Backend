@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
+using QuickDesk.worker.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

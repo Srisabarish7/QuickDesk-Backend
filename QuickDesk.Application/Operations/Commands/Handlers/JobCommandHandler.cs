@@ -55,7 +55,7 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
         {
             try
             {  
-                request.JobStatusId = request.ScheduledAt.HasValue && request.ScheduledAt.Value > DateTime.UtcNow ? 2 : 1;
+                request.JobStatusId = request.ScheduledAt.HasValue && request.ScheduledAt.Value > DateTime.Now ? 2 : 1;
                 var isValidJson = JsonDocument.Parse(request.DetailsJson.GetRawText());
                 if(!isValidJson.RootElement.ValueKind.Equals(JsonValueKind.Object))
                 {

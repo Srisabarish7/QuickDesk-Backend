@@ -18,9 +18,4 @@
     <ProjectReference Include="..\QuickDesk.Infrastructure\QuickDesk.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Operations\Queries\Handlers\" />
-    <Folder Include="Operations\Queries\Requests\" />
-  </ItemGroup>
-
 </Project>

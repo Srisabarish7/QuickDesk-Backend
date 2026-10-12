@@ -32,6 +32,10 @@ public class Program
             await Log.CloseAndFlushAsync();
             Environment.Exit(1);
         }
+        finally
+        {
+            await Log.CloseAndFlushAsync();
+        }
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args) =>

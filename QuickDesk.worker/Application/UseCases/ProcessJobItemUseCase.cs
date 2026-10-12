@@ -52,7 +52,7 @@ namespace QuickDesk.worker.Application.UseCases
                 }
 
                 var status = success ? "Completed" : "Failed";
-                DateTime? sentAt = string.Equals(status, "Completed", StringComparison.OrdinalIgnoreCase) ? DateTime.UtcNow : null;
+                DateTime? sentAt = string.Equals(status, "Completed", StringComparison.OrdinalIgnoreCase) ? DateTime.Now : null;
                 string emailErrorMessage = string.Equals(status, "Completed", StringComparison.OrdinalIgnoreCase) ? string.Empty : "Update EmailLog Failed";
                 await _sqlQueueRepository.UpdateEmailLog(jobItem.JobId, status, sentAt, emailErrorMessage, ct);
                 return ProcessingResult.Success();

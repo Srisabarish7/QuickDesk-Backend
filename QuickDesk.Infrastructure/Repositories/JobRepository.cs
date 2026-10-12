@@ -62,5 +62,76 @@ namespace QuickDesk.Infrastructure.Repositories
                 throw;
             }
         }
+
+        public async Task<IEnumerable<Notes>> GetNotes(GetNotes request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using var connectionString = await _connectionFactory.GetQuickDeskConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("@UserId", request.UserId);
+                parameters.Add("@Page", request.Page);
+                parameters.Add("@PageSize", request.PageSize);
+                parameters.Add("@SearchString", request.SearchString);
+                parameters.Add("@JobTypeId", 2);
+                var result = await connectionString.QueryAsync<Notes>(
+                    DBQueries.GetNotes,
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception thrown in JobRepository:GetNotes Input:{request}", request);
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<GetJobsResponse>> GetJobs(GetJobsRequest request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using var connectionString = await _connectionFactory.GetQuickDeskConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("@UserId", request.UserId);
+                parameters.Add("@JobTypeId", request.JobTypeId);
+                parameters.Add("@JobStatusId", request.JobStatusId);
+                parameters.Add("@Page", request.Page);
+                parameters.Add("@PageSize", request.PageSize);
+                parameters.Add("@StartDate", request.StartDate);
+                parameters.Add("@EndDate", request.EndDate);
+                var result = await connectionString.QueryAsync<GetJobsResponse>(
+                    DBQueries.GetJobs,
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception thrown in JobRepository:GetJobs Input:{request}", request);
+                throw;
+            }
+        }
+
+        public async Task<GetJobById> GetJobById(GetJobByIdRequest request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using var connectionString = await _connectionFactory.GetQuickDeskConnection();
+                var parameters = new DynamicParameters();
+                parameters.Add("@UserId", request.UserId);
+                parameters.Add("@JobId", request.JobId);
+                var result = await connectionString.QuerySingleOrDefaultAsync<GetJobById>(
+                    DBQueries.GetJobById,
+                    parameters,
+                    commandType: CommandType.Text);
+                return result ?? new GetJobById();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception thrown in JobRepository:GetJobById Input:{request}", request);
+                throw;
+            }
+        }
     }
 }

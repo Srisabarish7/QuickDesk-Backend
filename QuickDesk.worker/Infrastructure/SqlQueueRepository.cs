@@ -44,7 +44,7 @@ namespace QuickDesk.worker.Infrastructure
                 const string query = """                    
                     UPDATE Jobs
                     SET  JobStatusId = 2
-                    WHERE JobStatusId = 3 AND StartedAt < DATEADD(MINUTE, -@TimeoutInMinutes, SYSUTCDATETIME());                    
+                    WHERE JobStatusId = 3 AND StartedAt < DATEADD(MINUTE, -@TimeoutInMinutes, SYSDATETIME());                    
                     """;
 
                 await using var conn = new SqlConnection(_connectionString);
@@ -91,7 +91,7 @@ namespace QuickDesk.worker.Infrastructure
                 using var conn = new SqlConnection(_connectionString);
 
                 return await conn.ExecuteAsync(
-                    new CommandDefinition(query, new { request.UserId, request.JobId, request.Recipient, request.Subject, request.Status, request.ErrorMessage, CreatedAt = DateTime.UtcNow, request.JobTypeId, request.Title, request.Description }, cancellationToken: ct));
+                    new CommandDefinition(query, new { request.UserId, request.JobId, request.Recipient, request.Subject, request.Status, request.ErrorMessage, CreatedAt = DateTime.Now, request.JobTypeId, request.Title, request.Description }, cancellationToken: ct));
             }catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception thrown in SqlQueueRepository:AddEmailLog for JobId: {jobId}", request.JobId);

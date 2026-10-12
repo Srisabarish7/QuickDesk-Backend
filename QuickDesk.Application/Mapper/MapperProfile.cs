@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using QuickDesk.Application.Operations.Commands.Requests;
+using QuickDesk.Application.Operations.Queries.Requests;
+using QuickDesk.Application.ResponseDtos;
 using QuickDesk.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,13 @@ namespace QuickDesk.Application.Mapper
             CreateMap<AddUserCommand, AddUser>();
             CreateMap<SignInCommand, SignIn>();
             CreateMap<CreateJobCommand, CreateJob>();
+            #endregion
+
+
+            #region Queries
+            CreateMap<GetNotesQuery, GetNotes>();
+            CreateMap<GetJobsQuery, GetJobsRequest>();
+            CreateMap<GetJobByIdQuery, GetJobByIdRequest>();
             #endregion
         }
     }

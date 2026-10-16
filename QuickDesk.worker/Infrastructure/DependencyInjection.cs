@@ -16,6 +16,11 @@ namespace QuickDesk.worker.Infrastructure
             services.AddSingleton<IEmailSenderService, EmailSenderService>();
             services.AddSingleton<IQueryService, QueryService>();
             services.AddSingleton<ICsvExportService, CsvExportService>();
+
+            services.AddSingleton<SignalRConnectionService>();
+
+            services.AddHostedService(sg =>           
+                sg.GetRequiredService<SignalRConnectionService>());
             return services;
         }
     }

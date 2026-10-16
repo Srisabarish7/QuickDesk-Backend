@@ -1,4 +1,5 @@
 using QuickDesk.Api.Extensions;
+using QuickDesk.Api.Hubs;
 using QuickDesk.Api.Middlewares;
 using Serilog;
 
@@ -22,6 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
@@ -30,9 +33,12 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<JobHub>("/hubs/jobs");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

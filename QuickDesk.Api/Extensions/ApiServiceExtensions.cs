@@ -8,6 +8,8 @@ namespace QuickDesk.Api.Extensions
         public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
         {
             // Add API services here
+            services.AddCorsExtension(configuration);
+
             services.AddApplicationServices();
             services.AddInfrastructureExtensions();
             services.AddSwaggerExtension();

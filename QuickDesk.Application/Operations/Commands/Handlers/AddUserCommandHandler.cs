@@ -54,7 +54,7 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
                 var userExists = await _userRepository.CheckUserExists(request.UserName, request.Email, cancellationToken);
                 if (userExists.UserName)
                 {
-                    throw new BadRequestCustomException(["UserName already exists."]);
+                    throw new BadRequestCustomException(["User Name already exists."]);
                 }
                 else if (userExists.Email)
                 {
@@ -89,9 +89,11 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
                 var jwtSettings = _configuration.GetSection("Jwt");
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var userId = user.UserId.ToString();
 
                 var claims = new[]
                 {
+                    new Claim("UserId", userId),
                     new Claim("UserName", user.UserName),
                     new Claim("Email", user.Email),
                 };

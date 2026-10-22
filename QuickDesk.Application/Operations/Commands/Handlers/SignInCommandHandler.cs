@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using QuickDesk.Application.Operations.Commands.Requests;
 using QuickDesk.Application.ResponseDtos;
+using QuickDesk.Domain.Common.ExceptionHandling;
 using QuickDesk.Domain.Entities;
 using QuickDesk.Infrastructure.Interfaces;
 using System;
@@ -53,7 +54,7 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
                 var user = await _userRepository.ValidateUser(request.UserName, request.Password, cancellationToken);
                 if (user == null)
                 {
-                    throw new UnauthorizedAccessException("Invalid username or password.");
+                    throw new UnauthorizedCustomException(["Invalid username or password."]);
                 }
             }
             catch (Exception ex)
@@ -70,7 +71,7 @@ namespace QuickDesk.Application.Operations.Commands.Handlers
                 var user = await _userRepository.GetUserByUserName(userName, cancellationToken);
                 if (user == null)
                 {
-                    throw new UnauthorizedAccessException("Invalid username or password.");
+                    throw new UnauthorizedCustomException(["Invalid username or password."]);
                 }
                 return user;
             }

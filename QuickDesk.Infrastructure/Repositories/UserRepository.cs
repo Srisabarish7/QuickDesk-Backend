@@ -7,6 +7,7 @@ using System.Data;
 using System.Collections.Generic;
 using System.Text;
 using QuickDesk.Infrastructure.Services;
+using QuickDesk.Domain.Common.ExceptionHandling;
 
 namespace QuickDesk.Infrastructure.Repositories
 {
@@ -93,7 +94,7 @@ namespace QuickDesk.Infrastructure.Repositories
                 if (!isValidPassword)
                 {
                     _logger.LogWarning("Invalid password attempt for user: {UserName}", userName);
-                    throw new UnauthorizedAccessException("Invalid password.");
+                    throw new UnauthorizedCustomException(["Invalid password."]);
                 }
                 return isValidPassword ? result.UserName : null;
 
